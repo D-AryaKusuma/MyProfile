@@ -1,12 +1,13 @@
-@font-face {
+/* @font-face {
   font-family: "Lexend";
   src: url("../font/Lexend-Regular.ttf");
-}
+} */
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800, 800i, 900&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: lexend;
+  font-family: poppins;
   scroll-behavior: smooth;
 }
 section {
