@@ -65,14 +65,16 @@ header ul li a {
   transition: 0.5s;
 }
 header ul li a:hover {
-  color: #2196f3;
-  text-shadow: 5px 5px 3px #fff;
+  /* color: #2196f3;
+  text-shadow: 5px 5px 3px #fff; */
+  text-decoration: underline;
 }
 .sticky ul li a {
   color: #111;
 }
 .sticky ul li a:hover {
-  text-shadow: 5px 5px 3px #333;
+  /* text-shadow: 5px 5px 3px #333; */
+  text-decoration: underline;
 }
 
 /* banner */
@@ -138,6 +140,7 @@ header ul li a:hover {
 .about .heading h2 {
   font-weight: 600;
   font-size: 32px;
+  margin-top: -75px;
 }
 .content {
   display: flex;
@@ -202,11 +205,12 @@ header ul li a:hover {
 
 /* project */
 .project {
+  height: 675px;
   background: #2196f3;
 }
 .project .heading h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: -75px;
   font-size: 32px;
   color: #111;
 }
@@ -250,11 +254,13 @@ header ul li a:hover {
 
 /* Contact */
 .contact {
+  height: 675px;
   background: #111;
 }
 .contact .heading h2 {
   text-align: center;
   font-size: 32px;
+  margin-top: -75px;
   margin-bottom: 25px;
   color: #fff;
 }
@@ -366,6 +372,9 @@ header ul li a:hover {
   align-items: center;
   box-shadow: 3px 3px 3px rgba(200, 200, 200, 0.5);
   transition: 0.5s;
+}
+.sosmed img {
+  margin-top: 5px;
 }
 .sosmed a {
   color: #fff;
