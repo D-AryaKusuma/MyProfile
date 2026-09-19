@@ -1,0 +1,64 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="tictactoe.css" />
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet"/>
+
+        <title>Tic-Tac-Toe</title>
+    </head>
+
+    <body>
+        <div class="head">
+            <div id="icon">
+                <i class="indicator"></i>
+                <h2><a href="index.html">Kembali</a></h2>
+            </div>
+        </div>
+        <section class="title">
+            <h1>
+                <span class="t1">T</span>ic <span class="t2">T</span>ac
+                <span class="t3">T</span>oe
+            </h1>
+        </section>
+        <section class="display">
+            Player
+        <span class="display-player playerX">
+            <div id="chs"></div>
+        </span>
+            bermain
+        </section>
+        <section class="container">
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+        </section>
+        <section class="display announcer hide"></section>
+            <section class="controls">
+                <button id="reset">Reset</button>
+            </section>
+            
+        <script src="tictactoe.js"></script>
+        <script>
+        var icon = document.getElementById("icon");
+
+        icon.onclick = function () {
+            document.body.classList.toggle("dark-theme");
+            if (document.body.classList.contains("dark-theme")) {
+            icon.src = "<i></i>";
+            } else {
+            icon.src = "<i></i>";
+            }
+        };
+        </script>
+    </body>
+</html>

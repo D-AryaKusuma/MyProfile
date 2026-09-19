@@ -1,0 +1,185 @@
+const tiles = Array.from(document.querySelectorAll(".tile"));
+const playerDisplay = document.querySelector(".display-player");
+const resetButton = document.querySelector("#reset");
+const announcer = document.querySelector(".announcer");
+
+let board = ["", "", "", "", "", "", "", "", ""];
+let currentPlayer = "";
+const chs = document.getElementById("chs");
+const player = document.createElement("div");
+player.className = "player";
+player.innerHTML = `
+  <button class="o" value = "O" onClick="choose(this.value)"> 0 </button>
+  |
+  <button class="x" value = "X" onClick="choose(this.value)"> X </button>
+  `;
+
+chs.appendChild(player);
+// playerDisplay.appendChild(player);
+
+let isGameActive = true;
+
+const PLAYERX_WON = "PLAYERX_WON";
+const PLAYERO_WON = "PLAYERO_WON";
+const TIE = "TIE";
+
+const choose = (e) => {
+  currentPlayer = e;
+  chs.style.display = "none";
+  playerDisplay.innerHTML = e;
+  playerDisplay.classList.add(`player${currentPlayer}`);
+};
+
+const winningConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+function handleResultValidation() {
+  let roundWon = false;
+  for (let i = 0; i <= 7; i++) {
+    const winCondition = winningConditions[i];
+    const a = board[winCondition[0]];
+    const b = board[winCondition[1]];
+    const c = board[winCondition[2]];
+    if (a === "" || b === "" || c === "") {
+      continue;
+    }
+    if (a === b && b === c) {
+      roundWon = true;
+      break;
+    }
+  }
+
+  if (roundWon) {
+    announce(currentPlayer === "X" ? PLAYERX_WON : PLAYERO_WON);
+    isGameActive = false;
+    return;
+  }
+
+  if (!board.includes("")) announce(TIE);
+}
+
+const announce = (type) => {
+  switch (type) {
+    case PLAYERO_WON:
+      announcer.innerHTML = 'Player <span class="playerO">O</span> Menang';
+      break;
+    case PLAYERX_WON:
+      announcer.innerHTML = 'Player <span class="playerX">X</span> Menang';
+      break;
+    case TIE:
+      announcer.innerText = "Seri";
+  }
+  announcer.classList.remove("hide");
+};
+
+const isValidAction = (tile) => {
+  if (tile.innerText === "X" || tile.innerText === "O") {
+    return false;
+  }
+
+  return true;
+};
+
+const updateBoard = (index) => {
+  board[index] = currentPlayer;
+};
+
+const changePlayer = () => {
+  playerDisplay.classList.remove(`player${currentPlayer}`);
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  playerDisplay.innerText = currentPlayer;
+  playerDisplay.classList.add(`player${currentPlayer}`);
+};
+
+const userAction = (tile, index) => {
+  if (isValidAction(tile) && isGameActive) {
+    tile.innerText = currentPlayer;
+    tile.classList.add(`player${currentPlayer}`);
+    updateBoard(index);
+    handleResultValidation();
+    if (currentPlayer != "") {
+      changePlayer();
+    }
+  }
+};
+
+const resetChange = () => {
+  playerDisplay.innerText = "";
+  playerDisplay.appendChild(player);
+};
+
+const resetBoard = () => {
+  board = ["", "", "", "", "", "", "", "", ""];
+  currentPlayer = "";
+  isGameActive = true;
+  announcer.classList.add("hide");
+  resetChange();
+
+  tiles.forEach((tile) => {
+    tile.innerText = "";
+    tile.classList.remove("playerX");
+    tile.classList.remove("playerO");
+  });
+};
+
+// Using Event Delegation for Tile Clicks
+document.addEventListener("click", function(event) {
+  if (event.target.classList.contains("tile")) {
+    const tile = event.target;
+    const tiles = Array.from(document.querySelectorAll(".tile"));
+    const index = tiles.indexOf(tile);
+    userAction(tile, index);
+  }
+});
+
+// Reset button click
+document.addEventListener("click", function(event) {
+  if (event.target.id === "reset") {
+    resetBoard();
+  }
+});
+
+// Reset Game Function for Modal
+function resetGame() {
+  // Re-get elements to ensure we have the right references
+  const tiles = Array.from(document.querySelectorAll(".tile"));
+  const playerDisplay = document.querySelector(".display-player");
+  const resetButton = document.querySelector("#reset");
+  const announcer = document.querySelector(".announcer");
+  const chs = document.getElementById("chs");
+  
+  // Clear and rebuild player selection
+  board = ["", "", "", "", "", "", "", "", ""];
+  currentPlayer = "";
+  isGameActive = true;
+  announcer.classList.add("hide");
+  
+  chs.innerHTML = "";
+  const player = document.createElement("div");
+  player.className = "player";
+  player.innerHTML = `
+    <button class="o" value = "O" onClick="choose(this.value)"> 0 </button>
+    |
+    <button class="x" value = "X" onClick="choose(this.value)"> X </button>
+  `;
+  chs.appendChild(player);
+  chs.style.display = "block";
+  
+  playerDisplay.innerHTML = "";
+  playerDisplay.className = "display-player playerX";
+  
+  // Clear tiles
+  tiles.forEach((tile) => {
+    tile.innerText = "";
+    tile.classList.remove("playerX");
+    tile.classList.remove("playerO");
+  });
+}
